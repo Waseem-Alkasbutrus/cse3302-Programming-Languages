@@ -75,3 +75,7 @@ token_stream = scan_input(scanned_line)
 result = parse_input(token_stream)
 
 print(result)
+
+# read line
+# get result from line
+# write line
