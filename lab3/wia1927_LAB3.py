@@ -78,8 +78,8 @@ def evaluate(token_stream, verbose=False):
             operation = op_dict.get(token)
 
             # obtain 2 operands
-            a = float(operands.pop())
             b = float(operands.pop())
+            a = float(operands.pop())
             
             result = operation(a, b)
             
