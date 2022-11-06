@@ -1,6 +1,6 @@
 # Name         : Waseem Alkasbutrus
 # ID           : 1001849127
-# TODO: TURNED IN ON
+# TURNED IN    : Nov 5, 2022
 # OS           : Ubuntu 20.04.5 LTS (Not on a virtual machine)
 # Python Ver   : Python 3.8.10
 
@@ -21,23 +21,40 @@ def times(a, b):
 def divide(a, b):
     return a / b
 
+# ================================
+# Extra operators for extra credit
+# ================================
+
+# Modulo - returns the remainder of the division of a by b
+# input should follow the form {<dividend> <divisor> %} (excluding the {} brackets), e.g. {3 2 %} will result in 1
+def modulo(a, b):
+    return a % b
+
+# Power - returns the product of a by itself b times
+# input should follow the form {<base> <exponent> ^} (excluding the {} brackets), e.g. {2 3 ^} will result in 8
+def power(a, b):
+    return a ** b
+
 # Add operation functions into dictionary
 op_dict = {
     '+': plus,
     '-': minus,
     '*': times,
-    '/': divide
+    '/': divide,
+    '%': modulo, # extra credit operator
+    '^': power # extra credit operator
 }
 
 # scan each character and make sure it is a valid operand (0 - 9) or a valid operation (exists in op_dict)
 def scan_input(char_stream):
-    split_stream = char_stream.split(" ")
+    token_stream = char_stream.split(" ")
 
-    for token in split_stream:
-        if (token.isdigit() == False or len(token) != 1) and (token not in op_dict):
-            split_stream = "[ERROR] '" + token + "' is not a valid token"
+    # check for invalid tokens
+    for token in token_stream:
+        if (not token.isdigit() or len(token) != 1) and (token not in op_dict):
+            token_stream = "[ERROR] '" + token + "' is not a valid token"
         
-    return split_stream
+    return token_stream
 
 def parse_input(token_stream):
     # Test 1: Not enough tokens for a single expression
@@ -59,7 +76,6 @@ def parse_input(token_stream):
         result = "all good"
 
     return result
-            
 
 # iterates through the token stream and apply operations
 def evaluate(token_stream, verbose=False):
@@ -86,6 +102,7 @@ def evaluate(token_stream, verbose=False):
             # push result of operation to operands stack
             operands.append(result)
 
+            # prints step by step evaluation for debugging
             if verbose:
                 print(operands, " <- ", a, token, b)
     
@@ -114,3 +131,5 @@ input= open("input_RPN.txt", "r")
 for expression in input:
     result = str(solve_RPN(expression.strip('\n')))
     print(result)
+
+input.close()
