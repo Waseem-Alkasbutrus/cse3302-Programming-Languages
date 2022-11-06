@@ -5,10 +5,6 @@
 # Python Ver   : Python 3.8.10
 
 # Define basic operations
-from fileinput import filename
-from unittest import result
-
-
 def plus(a, b):
     return a + b
 
