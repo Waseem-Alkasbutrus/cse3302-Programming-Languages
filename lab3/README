@@ -1,0 +1,15 @@
+## Extra Credit
+
+#### How to run
+``python3 wia1927_Lab03_EC.py`` will execute the extra credit program which uses ``input_RPN_EC.txt`` for its input.
+
+#### Extra Operators
+I added two extra operators to the program.
+- Modulo (%) takes two operands and performs modulo division on them. ``3 2 %`` will give the result ``1``
+- Power (^) takes two operands and performs the power function on them. ``7 2 ^`` will result in ``49``
+
+#### Accept Multi-Digit Operands
+The extra credit program can accept multi-digit, positive integer inputs such as ``24`` or ``02``. It doesn't require single digit operands (0-9) like the main program. It cannot accept any negative numbers (any numbers that include ``-`` before the first digit)
+
+#### Accept Floating Point Operands
+The extra credit program can accept multi-digit, positive floating point inputs such as ``2.4`` or ``0.22``. It doesn't require single digit operands (0-9) like the main program. It cannot accept any negative numbers (any numbers that include ``-`` before the first digit)

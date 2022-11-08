@@ -19,21 +19,38 @@ def divide(a, b):
         return "[ERROR] Cannot divide by zero"
     return a / b
 
+# ================================
+# Extra operators for extra credit
+# ================================
+
+# Modulo - returns the remainder of the division of a by b
+# input should follow the form {<dividend> <divisor> %} (excluding the {} brackets), e.g. {3 2 %} will result in 1
+def modulo(a, b):
+    return a % b
+
+# Power - returns the product of a by itself b times
+# input should follow the form {<base> <exponent> ^} (excluding the {} brackets), e.g. {2 3 ^} will result in 8
+def power(a, b):
+    return a ** b
+
 # Add operation functions into dictionary
 op_dict = {
     '+': plus,
     '-': minus,
     '*': times,
     '/': divide,
+    '%': modulo, # extra credit operator
+    '^': power # extra credit operator
 }
 
-# scan each character and make sure it is a valid operand (0 - 9) or a valid operation (exists in op_dict)
+# scan each character and make sure it is a valid operand (any non negative real number including decimals) or a valid operation (exists in op_dict)
 def scan_input(char_stream):
     token_stream = char_stream.split(" ")
 
     # check for invalid tokens
     for token in token_stream:
-        if (not token.isdigit() or len(token) != 1) and (token not in op_dict):
+        # remove 1 decimal point to allow detecting a valid float
+        if not token.replace(".", "", 1).isdigit() and (token not in op_dict):
             token_stream = "[ERROR] '" + token + "' is not a valid token"
         
     return token_stream
@@ -44,11 +61,11 @@ def parse_input(token_stream):
         return "[ERROR] Not enough tokens (at least 3)"
 
     # Test 2: Operator before 2 operands
-    if not token_stream[0].isdigit() or not token_stream[1].isdigit():
+    if not token_stream[0].replace(".", "", 1).isdigit() or not token_stream[1].replace(".", "", 1).isdigit():
         return "[ERROR] Operators must have 2 operands"
 
     # Test 3: Incorrect number of operators
-    operands = list(filter(lambda token: token.isdigit(), token_stream))
+    operands = list(filter(lambda token: token.replace(".", "", 1).isdigit(), token_stream))
 
     if (len(token_stream) -  len(operands)) > (len(operands) - 1):
         result = "[ERROR] Too many operators"
@@ -65,7 +82,7 @@ def evaluate(token_stream, verbose=False):
 
     for token in token_stream:
         # if token is an operand, push to stack
-        if token.isdigit():
+        if token.replace(".", "", 1).isdigit():
             operands.append(token)
 
             if verbose:
@@ -108,7 +125,7 @@ def solve_RPN(char_stream):
     return result[0]
 
 
-input= open("input_RPN.txt", "r")
+input= open("input_RPN_EC.txt", "r")
 
 for expression in input:
     result = str(solve_RPN(expression.strip('\n')))
